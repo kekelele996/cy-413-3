@@ -11,6 +11,7 @@ ERROR_CODES = {
     "ASSESSMENT_CATEGORY_INVALID": "Assessment[category] validation failed: AssessmentCategory unsupported",
     "JOURNAL_NOT_FOUND": "Journal[id] lookup failed: journal not found",
     "JOURNAL_PRIVATE_DENIED": "Journal[is_private] read failed: private journal denied",
+    "MEDITATION_ALREADY_COMPLETED": "Meditation[today] already completed",
     "GLOBAL_UNEXPECTED": "Global[request] failed: unexpected error",
 }
 

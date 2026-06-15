@@ -11,7 +11,7 @@ interface UserState {
   updateProfile: (payload: Partial<User>) => Promise<void>;
 }
 
-export const useUserStore = create<UserState>((set) => ({
+export const useUserStore = create<UserState>((set, get) => ({
   profile: null,
   report: null,
   loading: false,
@@ -36,6 +36,10 @@ export const useUserStore = create<UserState>((set) => ({
   updateProfile: async (payload) => {
     const profile = await userApi.updateMe(payload);
     set({ profile });
+    if (get().report) {
+      const report = await userApi.getProfileReport();
+      set({ report });
+    }
   },
 }));
 

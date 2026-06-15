@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, time
 
 from pydantic import BaseModel, EmailStr, Field
 
@@ -9,6 +9,8 @@ class UserBase(BaseModel):
     avatar: str | None = None
     birth_date: date | None = None
     gender: str | None = None
+    meditation_days_per_week: int = Field(default=3, ge=1, le=7)
+    meditation_reminder_time: time | None = None
 
 
 class UserCreate(UserBase):
@@ -25,6 +27,8 @@ class UserUpdate(BaseModel):
     avatar: str | None = None
     birth_date: date | None = None
     gender: str | None = None
+    meditation_days_per_week: int | None = Field(default=None, ge=1, le=7)
+    meditation_reminder_time: time | None = None
 
 
 class UserRead(UserBase):
@@ -47,4 +51,7 @@ class ProfileReport(BaseModel):
     mood_count: int
     assessment_count: int
     journal_count: int
+    meditation_week_completion_rate: float
+    meditation_week_completed: int
+    meditation_week_target: int
 

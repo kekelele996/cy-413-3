@@ -16,6 +16,7 @@ class Journal(Base):
     mood_level: Mapped[int] = mapped_column(Integer, nullable=False)
     weather: Mapped[str | None] = mapped_column(String(64), nullable=True)
     is_private: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    is_meditation: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
     user = relationship("User", back_populates="journals")

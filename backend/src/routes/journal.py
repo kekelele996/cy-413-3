@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from src.config.database import get_db
@@ -9,6 +10,10 @@ from src.models.user import User
 from src.schemas.journal import JournalCreate, JournalRead, JournalUpdate
 
 router = APIRouter()
+
+
+class MeditationCompletePayload(BaseModel):
+    note: str | None = None
 
 
 @router.get("", response_model=list[JournalRead])
@@ -46,4 +51,21 @@ def delete_journal(
     current_user: User = Depends(get_current_user),
 ) -> dict[str, str]:
     return journal_controller.delete_journal(db, current_user, journal_id)
+
+
+@router.get("/meditation/today")
+def get_meditation_today(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+) -> dict[str, bool]:
+    return journal_controller.has_meditation_today(db, current_user)
+
+
+@router.post("/meditation/complete", response_model=JournalRead)
+def complete_meditation(
+    payload: MeditationCompletePayload,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+) -> Journal:
+    return journal_controller.complete_meditation(db, current_user, payload.note)
 

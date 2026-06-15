@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select, Switch } from 'antd';
+import { Button, Form, Input, Select, Switch, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { createJournal, getJournals } from '../api/journal';
 import { EmptyState } from '../components/common/EmptyState';
@@ -82,11 +82,21 @@ export function Journals() {
       <section style={{ marginTop: 18 }} className="timeline-list">
         {journals.length ? (
           journals.map((journal) => (
-            <MoodCard
-              key={journal.id}
-              mood={journalAsMood(journal)}
-              footer={<p className="muted">{journal.content}</p>}
-            />
+            <div key={journal.id}>
+              <MoodCard
+                mood={journalAsMood(journal)}
+                footer={
+                  <>
+                    {journal.is_meditation && (
+                      <Tag color="green" style={{ marginBottom: 8 }}>
+                        🧘 已冥想
+                      </Tag>
+                    )}
+                    <p className="muted">{journal.content}</p>
+                  </>
+                }
+              />
+            </div>
           ))
         ) : (
           <EmptyState title="还没有日记" description="写一篇日记后会按时间线展示。" />

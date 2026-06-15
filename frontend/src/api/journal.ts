@@ -25,3 +25,14 @@ export function deleteJournal(id: number) {
   });
 }
 
+export function getMeditationToday() {
+  return request<{ completed: boolean }>('/journals/meditation/today');
+}
+
+export function completeMeditation(note?: string) {
+  return request<Journal>('/journals/meditation/complete', {
+    method: 'POST',
+    body: JSON.stringify({ note }),
+  });
+}
+

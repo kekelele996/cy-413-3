@@ -9,6 +9,8 @@ export interface User {
   birth_date?: string | null;
   gender?: string | null;
   role: 'admin' | 'member' | 'guest';
+  meditation_days_per_week: number;
+  meditation_reminder_time?: string | null;
   created_at: string;
 }
 
@@ -75,6 +77,7 @@ export interface Journal {
   mood_level: number;
   weather?: string | null;
   is_private: boolean;
+  is_meditation: boolean;
   created_at: string;
 }
 
@@ -84,6 +87,7 @@ export interface JournalPayload {
   mood_level: number;
   weather?: string;
   is_private: boolean;
+  is_meditation?: boolean;
 }
 
 export interface ProfileReport {
@@ -92,5 +96,8 @@ export interface ProfileReport {
   mood_count: number;
   assessment_count: number;
   journal_count: number;
+  meditation_week_completion_rate: number;
+  meditation_week_completed: number;
+  meditation_week_target: number;
 }
 

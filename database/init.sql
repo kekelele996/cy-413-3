@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS users (
   birth_date DATE,
   gender VARCHAR(32),
   role VARCHAR(32) NOT NULL DEFAULT 'member',
+  meditation_days_per_week INTEGER NOT NULL DEFAULT 3,
+  meditation_reminder_time TIME,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -51,6 +53,7 @@ CREATE TABLE IF NOT EXISTS journals (
   mood_level INTEGER NOT NULL CHECK (mood_level BETWEEN 1 AND 10),
   weather VARCHAR(64),
   is_private BOOLEAN NOT NULL DEFAULT TRUE,
+  is_meditation BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 

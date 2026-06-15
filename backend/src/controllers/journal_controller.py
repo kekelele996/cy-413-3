@@ -39,3 +39,19 @@ def delete_journal(db: Session, current_user: User, journal_id: int) -> dict[str
         app_logger.error("Journal[id=%s] controller delete failed: %s", journal_id, exc)
         raise
 
+
+def has_meditation_today(db: Session, current_user: User) -> dict[str, bool]:
+    try:
+        return {"completed": journal_service.has_meditation_today(db, current_user)}
+    except Exception as exc:
+        app_logger.error("Meditation[user_id=%s] controller check failed: %s", current_user.id, exc)
+        raise
+
+
+def complete_meditation(db: Session, current_user: User, note: str | None = None) -> Journal:
+    try:
+        return journal_service.complete_meditation(db, current_user, note)
+    except Exception as exc:
+        app_logger.error("Meditation[user_id=%s] controller complete failed: %s", current_user.id, exc)
+        raise
+

@@ -9,6 +9,7 @@ class JournalBase(BaseModel):
     mood_level: int = Field(ge=1, le=10)
     weather: str | None = None
     is_private: bool = True
+    is_meditation: bool = False
 
 
 class JournalCreate(JournalBase):
@@ -21,6 +22,7 @@ class JournalUpdate(BaseModel):
     mood_level: int | None = Field(default=None, ge=1, le=10)
     weather: str | None = None
     is_private: bool | None = None
+    is_meditation: bool | None = None
 
 
 class JournalRead(JournalBase):
